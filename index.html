@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Documentación de mi API</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Agregar el CSS de highlight.js -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+<!-- Agregar el script de highlight.js -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+  </head>
+  <style>
+    .logo img{
+        height: 60px;
+    }
+    .logo {
+        margin: 20px;
+    }
+  </style>
+  <body>
+    <div class="logo">
+        <img src="images/smart_logo.png" alt="">
+    </div>
+    <div class="container">
+      <h1>Documentación de la API de conversión de moneda Dolar/Quetzal</h1>
+      <p>La API de conversión de moneda permite obtener la tasa de cambio actual del dólar de Guatemala. La tasa de cambio es proporcionada por el Banco de Guatemala y se actualiza diariamente.</p>
+            <section>
+                <h2>Ruta <code>/dolar</code></h2>
+                <p>Esta ruta permite obtener la tasa de cambio actual del dólar de Guatemala.</p>
+                <h3>Método HTTP</h3>
+                <p>GET</p>
+                <h3>Parámetros de la solicitud</h3>
+                <p>Esta ruta no requiere ningún parámetro adicional en la solicitud.</p>
+                <h3>Respuesta de la API</h3>
+                <p>La API devuelve un objeto JSON con dos propiedades: <code>fecha</code> y <code>referencia</code>. La propiedad <code>fecha</code> contiene la fecha en la que se actualizó la tasa de cambio y la propiedad <code>referencia</code> contiene el valor de la tasa de cambio.</p>
+                <h3>Ejemplo de solicitud</h3>
+                <p>Para obtener la tasa de cambio actual del dólar de Guatemala, realiza una solicitud GET a la siguiente URL:</p>
+                <pre><code>http://dominio.com/tipoCambio/dolar</code></pre>
+                <h3>Ejemplo de respuesta</h3>
+                <p>A continuación se muestra un ejemplo de la respuesta de la API:</p>
+                <pre><code>
+                {
+                    "fecha": "12/05/2023",
+                    "referencia": "7.66612"
+                }
+                </code></pre>
+            </section>
+
+           <style>
+                .hljs {
+                    color: white; /* Cambia el color del texto a blanco */
+                }
+            </style>
+            <section>
+                <h2>Consumo de la API con fetch()</h2>
+                <p>Puedes utilizar el método <code>fetch()</code> de JavaScript para realizar solicitudes GET a la ruta <code>/dolar</code> de la API.</p>
+                <h3>Ejemplo de código</h3>
+                <p>A continuación se muestra un ejemplo de cómo consumir la API utilizando <code>fetch()</code>:</p>
+                <pre><code class="hljs bg-dark">fetch('http://dominio.com/tipoCambio/dolar')
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error(error));</code></pre>
+            </section>
+
+            <section id="app">
+                <h2><strong>Dentro del código de la API que fue manejada con Node, incluimos librerías como CORS y Helmet</strong></h2>
+                <pre class="language-javascript"><code class="hljs bg-dark">
+                  const express = require('express');
+                  const tipoCambioRouter = require('./routes/tipoCambio');
+                  const cors = require('cors');
+                  const helmet = require('helmet');
+              
+                  const app = express();
+              
+                  // Agregar el middleware de CORS para permitir peticiones de cualquier sitio
+                  app.use(cors());
+              
+                  // Agregar el middleware de Helmet para agregar seguridad adicional
+                  app.use(helmet());
+              
+                  app.use(express.json());
+                  app.use('/tipoCambio', tipoCambioRouter);
+              
+                  module.exports = app;
+                </code></pre>
+                <p>El middleware de CORS permitirá que puedas consultar la API dese cualquier sitio.</p>
+              </section>
+
+              <div class="container">
+              
+                <p>Esta API fue desarrollada utilizando Node.js y las siguientes librerías:</p>
+                <ul>
+                  <li>Express.js</li>
+                  <li>Axios</li>
+                  <li>xml2js</li>
+                </ul>
+              
+                <p>Se consume un servicio SOAP de la API del Banco de Guatemala para obtener el tipo de cambio del dólar.</p>
+        
+              </div>
+              
+              
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  </body>
+</html>
